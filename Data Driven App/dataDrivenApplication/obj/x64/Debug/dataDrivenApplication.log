@@ -1,0 +1,27 @@
+﻿  main.cpp
+  ofApp.cpp
+  Info: Boost.Config is older than your compiler version - probably nothing bad will happen - but you may wish to look for an update Boost version.  Define BOOST_CONFIG_SUPPRESS_OUTDATED_MESSAGE to suppress this message.
+  Info: Boost.Config is older than your compiler version - probably nothing bad will happen - but you may wish to look for an update Boost version.  Define BOOST_CONFIG_SUPPRESS_OUTDATED_MESSAGE to suppress this message.
+C:\Users\Al-John\Desktop\desktop\Drawings\Bathspa\CC\Year 2\CODE LAB 2\of_v0.11.2_vs2017_release\libs\openFrameworks\math\ofMatrix4x4.h(326,1): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data (compiling source file src\main.cpp)
+C:\Users\Al-John\Desktop\desktop\Drawings\Bathspa\CC\Year 2\CODE LAB 2\of_v0.11.2_vs2017_release\libs\openFrameworks\math\ofMatrix4x4.h(331,1): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data (compiling source file src\main.cpp)
+C:\Users\Al-John\Desktop\desktop\Drawings\Bathspa\CC\Year 2\CODE LAB 2\of_v0.11.2_vs2017_release\libs\openFrameworks\math\ofMatrix4x4.h(912,12): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data (compiling source file src\main.cpp)
+C:\Users\Al-John\Desktop\desktop\Drawings\Bathspa\CC\Year 2\CODE LAB 2\of_v0.11.2_vs2017_release\libs\openFrameworks\math\ofMatrix4x4.h(913,12): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data (compiling source file src\main.cpp)
+C:\Users\Al-John\Desktop\desktop\Drawings\Bathspa\CC\Year 2\CODE LAB 2\of_v0.11.2_vs2017_release\libs\openFrameworks\math\ofMatrix4x4.h(914,12): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data (compiling source file src\main.cpp)
+C:\Users\Al-John\Desktop\desktop\Drawings\Bathspa\CC\Year 2\CODE LAB 2\of_v0.11.2_vs2017_release\libs\openFrameworks\math\ofMatrix4x4.h(915,12): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data (compiling source file src\main.cpp)
+C:\Users\Al-John\Desktop\desktop\Drawings\Bathspa\CC\Year 2\CODE LAB 2\of_v0.11.2_vs2017_release\libs\openFrameworks\math\ofMatrix4x4.h(326,1): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data (compiling source file src\ofApp.cpp)
+C:\Users\Al-John\Desktop\desktop\Drawings\Bathspa\CC\Year 2\CODE LAB 2\of_v0.11.2_vs2017_release\libs\openFrameworks\math\ofMatrix4x4.h(331,1): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data (compiling source file src\ofApp.cpp)
+C:\Users\Al-John\Desktop\desktop\Drawings\Bathspa\CC\Year 2\CODE LAB 2\of_v0.11.2_vs2017_release\libs\openFrameworks\math\ofMatrix4x4.h(912,12): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data (compiling source file src\ofApp.cpp)
+C:\Users\Al-John\Desktop\desktop\Drawings\Bathspa\CC\Year 2\CODE LAB 2\of_v0.11.2_vs2017_release\libs\openFrameworks\math\ofMatrix4x4.h(913,12): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data (compiling source file src\ofApp.cpp)
+C:\Users\Al-John\Desktop\desktop\Drawings\Bathspa\CC\Year 2\CODE LAB 2\of_v0.11.2_vs2017_release\libs\openFrameworks\math\ofMatrix4x4.h(914,12): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data (compiling source file src\ofApp.cpp)
+C:\Users\Al-John\Desktop\desktop\Drawings\Bathspa\CC\Year 2\CODE LAB 2\of_v0.11.2_vs2017_release\libs\openFrameworks\math\ofMatrix4x4.h(915,12): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data (compiling source file src\ofApp.cpp)
+     Creating library bin\dataDrivenApplication_debug.lib and object bin\dataDrivenApplication_debug.exp
+  dataDrivenApplication.vcxproj -> C:\Users\Al-John\Desktop\desktop\Drawings\Github\Hello-World\Data Driven App\dataDrivenApplication\bin\dataDrivenApplication_debug.exe
+  
+  	                   2	C:\Users\Al-John\Desktop\desktop\Drawings\Bathspa\CC\Year 2\CODE LAB 2\of_v0.11.2_vs2017_release\libs\fmod\lib\vs\x64\
+  	    New File  		 1826304	C:\Users\Al-John\Desktop\desktop\Drawings\Bathspa\CC\Year 2\CODE LAB 2\of_v0.11.2_vs2017_release\libs\fmod\lib\vs\x64\fmod.dll
+  	    New File  		 2041856	C:\Users\Al-John\Desktop\desktop\Drawings\Bathspa\CC\Year 2\CODE LAB 2\of_v0.11.2_vs2017_release\libs\fmod\lib\vs\x64\fmodL.dll
+  
+  	                   1	C:\Users\Al-John\Desktop\desktop\Drawings\Bathspa\CC\Year 2\CODE LAB 2\of_v0.11.2_vs2017_release\libs\FreeImage\lib\vs\x64\
+  	  *EXTRA File 		 1826304	C:\Users\Al-John\Desktop\desktop\Drawings\Github\Hello-World\Data Driven App\dataDrivenApplication\bin\fmod.dll
+  	  *EXTRA File 		 2041856	C:\Users\Al-John\Desktop\desktop\Drawings\Github\Hello-World\Data Driven App\dataDrivenApplication\bin\fmodL.dll
+  	    New File  		 6942208	C:\Users\Al-John\Desktop\desktop\Drawings\Bathspa\CC\Year 2\CODE LAB 2\of_v0.11.2_vs2017_release\libs\FreeImage\lib\vs\x64\FreeImage.dll
