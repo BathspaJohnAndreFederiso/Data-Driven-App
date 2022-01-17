@@ -129,6 +129,7 @@ void ofApp::keyPressed(int key){
 		tweets.clear();
 		tweetDate.clear(); // clears any remaining elements in both vectors before further operation in this if statement
 		std::cout << "Clicked button 1" << std::endl; // displays appropriate message to console
+
 		for (int a = 0; a < 1550; a++) { // for loop that runs as long as a is less than the 1550, ergo it displays the first 1550 columns
 
 			tweets.push_back(processTweet2[a]);
