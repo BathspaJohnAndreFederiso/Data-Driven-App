@@ -4,9 +4,9 @@
 void ofApp::setup(){
 	//loads images declared in header, with image assets from src folder of this project
 	testImg.load("ned.jpg");
-
+	
 	// loads fonts, same as the image above but for fonts (styles, sizes)
-	smallTxt.load("Dongle-Light.ttf", 13);
+	smallTxt.load("Dongle-Light.ttf", 16);
 	medTxt.load("Dongle-Regular.ttf", 17);
 	bigTxt.load("RobotoCondensed-Regular.ttf", 17);
 	btnTxt.load("Dongle-Bold.ttf", 26);
@@ -26,13 +26,14 @@ void ofApp::setup(){
 
 	queWindow.set(0, 60, 370, 760); // num are as follows, Xposition, Yposition, Length, Width 
 	resWindow.set(390, 20, 615, 925); // original width value is 725
-
+	
+	//countWindow.set(390, 20, countWindowLength, 50);
 	loadData(); //function to load the data is summoned
 }
 
 //--------------------------------------------------------------
 void ofApp::update(){
-
+	
 }
 
 //--------------------------------------------------------------
@@ -43,6 +44,7 @@ void ofApp::draw(){
 
 	ofSetColor(228, 241, 255); // sets color to offwhite
 	ofDrawRectangle(queWindow);
+
 
 	ofSetColor(101, 119, 134); // sets color to gray
 	ofDrawRectangle(resWindow); // draws resWindow as a rectangle
@@ -57,31 +59,44 @@ void ofApp::draw(){
 	ofDrawRectangle(btn9);
 	ofDrawRectangle(btn10); // draws the btn entities on the screen using ofDrawRectangle
 
+
+
+
 	ofSetColor(255, 255, 255);
-	uiHeader.drawString("Tweet Search", 30, 45); // uses uiHeader object for drawString function, Tweet Search string, 30 x and 45 y added as values
+	uiHeader.drawString("Tweet Finder", 30, 45); // uses uiHeader object for drawString function, Tweet Search string, 30 x and 45 y added as values
 	btnTxt.drawString("Count Tweets", 105, 110);  // same but with adjusted string, x and y values to put text in the btn entities drawn 
 	btnTxt.drawString("Count Tweets w/ 'money'", 50, 180);
 	btnTxt.drawString("Count Tweets w/ 'politics'", 48, 250);
 	btnTxt.drawString("Print Tweets w/ 'Paris'", 65, 320);
 	btnTxt.drawString("Print Tweets w/ 'DreamWorks'", 27, 390);
 	btnTxt.drawString("Print Tweets w/ 'Uber'", 65, 460);
-	btnTxt.drawString("Print Tweets w/ 'Trump'", 60, 530);
+	btnTxt.drawString("Count Tweets w/ 'Trump'", 60, 530);
 	btnTxt.drawString("Count Tweets w/ 'Pizza'", 60, 600);
-	btnTxt.drawString("Count Tweets w/ 'Tokyo'", 60, 670);
+	btnTxt.drawString("Print Tweets w/ 'Tokyo'", 60, 670);
 	btnTxt.drawString("Print Tweets w/ 'America'", 55, 740);
+	
+	int yPos = 120;
+	
 
-
-	int yPos = 50;
 	for (int q = 0; q < tweets.size(); q++) {
 
-		bigTxt.drawString(tweetDate[q], 395, yPos);
+		bigTxt.drawString(tweetDate[q], 395, yPos); // draws the value of the current element of TweetDate
 
-		string formattedTxt = wrapString(tweets[q], 610);
-		medTxt.drawString(formattedTxt, 400, (yPos + 20));
+		string formattedTxt = wrapString(tweets[q], 580); // declares new string formattedTxt, which is equal to the wrapString function with the current element of tweets and value 580 passed in
+		smallTxt.drawString(formattedTxt, 400, (yPos + 20)); //  using smallTxt, calls drawString with formattedTxt, 400 (x position) and yPos incremented by 20 passed in
 
-		yPos += 110;
+		yPos += 110; // increments yPos by 110;
+		if (q == (tweets.size() - 1) && displayTweetCount == true) { // if code that runs if displayTweetCount is equal to true and q is equal to the second to last element
+			
+			countWindow.set(390, 20, countWindowLength, 50); // sets countWindow rectangle with a dynamic length value
+			ofSetColor(170, 184, 194); // sets color to lighter grey
+			ofDrawRectangle(countWindow); // draws countWindow rectangle 
+			ofSetColor(20, 23, 26); // sets color to white
+			btnTxt.drawString("Tweets: " + ofToString(tweetCount), 405, 50); // draws the value of tweetCount using ofToString and btnTxt.drawString
+		}
+
 	}
-
+	
 
 	//testImg.draw(600, 500, 212, 212);
 }
@@ -103,7 +118,7 @@ void ofApp::loadData() {
 		data.close(); //close file
 	}
 	else {
-		cout << "Error: File is not found." << endl; // outputs error message
+		cout << "Error: File not found." << endl; // outputs error message
 	}
 }
 
@@ -116,36 +131,134 @@ void ofApp::keyPressed(int key){
 //--------------------------------------------------------------
 void ofApp::mousePressed(int x, int y, int button){
 
-	if (btn4.inside(x, y)) { // runs if btn1 is in the cursor when pressed
-		std::cout << "Clicked button 1" << std::endl;
-
+	if (btn1.inside(x, y)) { // runs if btn2 is in the cursor when pressed
+		displayTweetCount = false; // returns displayTweetCount to false, removing any previous displayed count of tweets
 		tweets.clear();
 		tweetDate.clear(); // clears any remaining elements in both vectors before further operation in this if statement
-		for (int a = 0; a < processTweet2.size(); a++) { // for loop that runs as long as a is less than the size of tweet2
+		std::cout << "Clicked button 1" << std::endl; // displays appropriate message to console
+		for (int a = 0; a < 1550; a++) { // for loop that runs as long as a is less than the 1550, ergo it displays the first 1550 columns
 
-			string srch = processTweet2[a]; // uses string srch to represent the value of the current element of tweet2
-			if (srch.find("Paris") != string::npos) { // nested if statement that runs if srch has any value equal to "Paris" 
-				tweets.push_back(processTweet2[a]); // pushes the value of tweet2 into tweets vector
-				tweetDate.push_back(processTweet1[a]);
-			}
-
+			tweets.push_back(processTweet2[a]);
+			tweetDate.push_back(processTweet1[a]); // pushes the values of processTweet1 and processTweet2 into tweets and tweetDate vectors
+				
 		}
+		
+		tweetCount = 63694; // sets tweetCount to 63694 (the number of data lines in the csv) as passing and displaying every single row in the csv file will crash the app
+		countWindowLength = 190; // sets countWindowLength to 190
+		displayTweetCount = true; // resets displayTweetCount to true to make it count its own number of tweets
 	}
-	else if (btn4.inside(x, y)) { // runs if btn1 is in the cursor when pressed
-		std::cout << "Clicked button 4" << std::endl;
+	else if (btn2.inside(x, y)) { // runs if btn2 is in the cursor when pressed
+		std::cout << "Clicked button 2" << std::endl; // displays appropriate message to console
+		displayTweetCount = false; 
+		tweets.clear();
+		tweetDate.clear(); 
 
+		processData("money", "Money"); // summons processData function with "money" and "Money" passed in as parameter
+		countWindowLength = 160;
+		displayTweetCount = true;
+	}
+	else if (btn3.inside(x, y)) { // runs if btn3 is in the cursor when pressed
+		std::cout << "Clicked button 3" << std::endl;
+		displayTweetCount = false;
 		tweets.clear();
 		tweetDate.clear(); // clears any remaining elements in both vectors before further operation in this if statement
-		for (int a = 0; a < processTweet2.size(); a++) { // for loop that runs as long as a is less than the size of tweet2
 
-			string srch = processTweet2[a]; // uses string srch to represent the value of the current element of tweet2
-			if (srch.find("Paris") != string::npos) { // nested if statement that runs if srch has any value equal to "Paris" 
-				tweets.push_back(processTweet2[a]); // pushes the value of tweet2 into tweets vector
-				tweetDate.push_back(processTweet1[a]);
-			}
-
-		}
+		processData("Politics", "politics"); // the following btn elses' 
+		                                     // content will be mostly the same but with different string values passed in
+		countWindowLength = 160;
+		displayTweetCount = true; 
 	}
+	else if (btn4.inside(x, y)) { // runs if btn4 is in the cursor when pressed
+		std::cout << "Clicked button 4" << std::endl; 
+		displayTweetCount = false;
+		tweets.clear();
+		tweetDate.clear(); 
+
+		processData("Paris", "paris");
+	}
+	else if (btn5.inside(x, y)) { // runs if btn5 is in the cursor when pressed
+		std::cout << "Clicked button 5" << std::endl;
+		displayTweetCount = false; // returns displayTweetCount to false
+		tweets.clear();
+		tweetDate.clear(); 
+
+		processDataSingle("DreamWorks");
+	}
+	else if (btn6.inside(x, y)) { // runs if btn6 is in the cursor when pressed
+		std::cout << "Clicked button 6" << std::endl;
+		displayTweetCount = false; // returns displayTweetCount to false
+		tweets.clear();
+		tweetDate.clear(); 
+
+		processDataSingle("Uber"); 
+	}
+	else if (btn7.inside(x, y)) { // runs if btn7 is in the cursor when pressed
+		std::cout << "Clicked button 7" << std::endl;
+		displayTweetCount = false; // returns displayTweetCount to false
+		tweets.clear();
+		tweetDate.clear(); 
+
+		processDataSingle("Trump");
+		displayTweetCount = true;
+		countWindowLength = 170;
+	}
+	else if (btn8.inside(x, y)) { // runs if btn8 is in the cursor when pressed
+		std::cout << "Clicked button 8" << std::endl;
+		displayTweetCount = false; // returns displayTweetCount to false
+		tweets.clear();
+		tweetDate.clear(); 
+
+		processData("pizza", "Pizza");
+		displayTweetCount = true;
+		countWindowLength = 150;
+	}
+	else if (btn9.inside(x, y)) { // runs if btn9 is in the cursor when pressed
+		std::cout << "Clicked button 9" << std::endl;
+		displayTweetCount = false; // returns displayTweetCount to false
+		tweets.clear();
+		tweetDate.clear(); 
+
+		processData("Tokyo", "tokyo");
+		
+	}
+	else if (btn10.inside(x, y)) { // runs if btn10 is in the cursor when pressed
+		std::cout << "Clicked button 10" << std::endl;
+		displayTweetCount = false; // returns displayTweetCount to false
+		tweets.clear();
+		tweetDate.clear(); 
+
+		processData("America", "america");
+	}
+}
+
+void ofApp::processData(string srchTerm, string srchTerm2) {
+
+	for (int a = 0; a < processTweet2.size(); a++) { // for loop that runs as long as a is less than the size of tweet2
+
+		string srch = processTweet2[a]; // uses string srch to represent the value of the current element of tweet2
+		if (srch.find(srchTerm) != string::npos || srch.find(srchTerm2) != string::npos) { // nested if statement that runs if srchTerm or srchTerm2 has any value equal to the passed in string element 
+			tweets.push_back(processTweet2[a]); 
+			tweetDate.push_back(processTweet1[a]); // pushes the values of processTweet1 and processTweet2 into tweets and tweetDate vectors
+		}
+
+	}
+	tweetCount = tweets.size(); // assigns to tweetCount the value of the size of tweets vector
+
+}
+
+//--------------------------------------------------------------
+void ofApp::processDataSingle(string srchTerm) {
+	
+	for (int a = 0; a < processTweet2.size(); a++) { // for loop that runs as long as a is less than the size of tweet2
+
+		string srch = processTweet2[a]; // uses string srch to represent the value of the current element of tweet2
+		if (srch.find(srchTerm) != string::npos) { // nested if statement that runs if srchTerm has any value equal to the passed in string element 
+			tweets.push_back(processTweet2[a]); 
+			tweetDate.push_back(processTweet1[a]); // pushes the values of processTweet1 and processTweet2 into tweets and tweetDate vectors
+		}
+
+	}
+	tweetCount = tweets.size(); // assigns to tweetCount the value of the size of tweets vector
 }
 
 //--------------------------------------------------------------
@@ -153,10 +266,6 @@ void ofApp::gotMessage(ofMessage msg){
 
 }
 
-//--------------------------------------------------------------
-void ofApp::dragEvent(ofDragInfo dragInfo){ 
-
-}
 // --------------------------------------------------------------
 string ofApp::wrapString(string text, int width) {
 	string typeWrapped = "";
@@ -187,4 +296,3 @@ string ofApp::wrapString(string text, int width) {
 	return typeWrapped;
 
 }
-

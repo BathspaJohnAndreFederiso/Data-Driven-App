@@ -6,6 +6,8 @@ C:\Users\Al-John\Desktop\desktop\Drawings\Bathspa\CC\Year 2\CODE LAB 2\of_v0.11.
 C:\Users\Al-John\Desktop\desktop\Drawings\Bathspa\CC\Year 2\CODE LAB 2\of_v0.11.2_vs2017_release\libs\openFrameworks\math\ofMatrix4x4.h(913,12): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
 C:\Users\Al-John\Desktop\desktop\Drawings\Bathspa\CC\Year 2\CODE LAB 2\of_v0.11.2_vs2017_release\libs\openFrameworks\math\ofMatrix4x4.h(914,12): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
 C:\Users\Al-John\Desktop\desktop\Drawings\Bathspa\CC\Year 2\CODE LAB 2\of_v0.11.2_vs2017_release\libs\openFrameworks\math\ofMatrix4x4.h(915,12): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\Al-John\Desktop\desktop\Drawings\Github\Data-Driven-App\Data Driven App\dataDrivenApplication\src\ofApp.cpp(248,28): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\Al-John\Desktop\desktop\Drawings\Github\Data-Driven-App\Data Driven App\dataDrivenApplication\src\ofApp.cpp(264,28): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
   dataDrivenApplication.vcxproj -> C:\Users\Al-John\Desktop\desktop\Drawings\Github\Data-Driven-App\Data Driven App\dataDrivenApplication\bin\dataDrivenApplication_debug.exe
   
   	                   2	C:\Users\Al-John\Desktop\desktop\Drawings\Bathspa\CC\Year 2\CODE LAB 2\of_v0.11.2_vs2017_release\libs\fmod\lib\vs\x64\
