@@ -6,9 +6,9 @@ void ofApp::setup(){
 	testImg.load("ned.jpg");
 
 	// loads fonts, same as the image above but for fonts (styles, sizes)
-	smallTxt.load("Dongle-Light.ttf", 23);
-	medTxt.load("Dongle-Regular.ttf", 25);
-	bigTxt.load("RobotoCondensed-Regular.ttf", 29);
+	smallTxt.load("Dongle-Light.ttf", 13);
+	medTxt.load("Dongle-Regular.ttf", 17);
+	bigTxt.load("RobotoCondensed-Regular.ttf", 17);
 	btnTxt.load("Dongle-Bold.ttf", 26);
 	uiHeader.load("Dongle-Bold.ttf", 55); 
 
@@ -24,8 +24,8 @@ void ofApp::setup(){
 	btn9.set(10, 630, 350, 60);
 	btn10.set(10, 700, 350, 60);
 
-	queWindow.set(0, 60, 370, 760); // num are as follows, XYLW 
-	resWindow.set(390, 20, 615, 725);
+	queWindow.set(0, 60, 370, 760); // num are as follows, Xposition, Yposition, Length, Width 
+	resWindow.set(390, 20, 615, 925); // original width value is 725
 
 	loadData(); //function to load the data is summoned
 }
@@ -46,7 +46,6 @@ void ofApp::draw(){
 
 	ofSetColor(101, 119, 134); // sets color to gray
 	ofDrawRectangle(resWindow); // draws resWindow as a rectangle
-
 	ofDrawRectangle(btn1); 
 	ofDrawRectangle(btn2);
 	ofDrawRectangle(btn3);
@@ -70,15 +69,17 @@ void ofApp::draw(){
 	btnTxt.drawString("Count Tweets w/ 'Pizza'", 60, 600);
 	btnTxt.drawString("Count Tweets w/ 'Tokyo'", 60, 670);
 	btnTxt.drawString("Print Tweets w/ 'America'", 55, 740);
-	int yPos = 160;
+
+
+	int yPos = 50;
 	for (int q = 0; q < tweets.size(); q++) {
 
-		string formattedTxt = wrapString(tweets[q], 650);
-		bigTxt.drawString(tweetDate[q], 390, 20);
-		
-		medTxt.drawString(formattedTxt, 390, 20);
+		bigTxt.drawString(tweetDate[q], 395, yPos);
 
-		yPos += 80;
+		string formattedTxt = wrapString(tweets[q], 610);
+		medTxt.drawString(formattedTxt, 400, (yPos + 20));
+
+		yPos += 110;
 	}
 
 
@@ -111,30 +112,17 @@ void ofApp::keyPressed(int key){
 
 }
 
-//--------------------------------------------------------------
-void ofApp::keyReleased(int key){
-
-}
-
-//--------------------------------------------------------------
-void ofApp::mouseMoved(int x, int y ){
-
-}
-
-//--------------------------------------------------------------
-void ofApp::mouseDragged(int x, int y, int button){
-
-}
 
 //--------------------------------------------------------------
 void ofApp::mousePressed(int x, int y, int button){
 
-	if (btn1.inside(x, y)) { // runs if btn1 is in the cursor when pressed
+	if (btn4.inside(x, y)) { // runs if btn1 is in the cursor when pressed
 		std::cout << "Clicked button 1" << std::endl;
 
 		tweets.clear();
 		tweetDate.clear(); // clears any remaining elements in both vectors before further operation in this if statement
 		for (int a = 0; a < processTweet2.size(); a++) { // for loop that runs as long as a is less than the size of tweet2
+
 			string srch = processTweet2[a]; // uses string srch to represent the value of the current element of tweet2
 			if (srch.find("Paris") != string::npos) { // nested if statement that runs if srch has any value equal to "Paris" 
 				tweets.push_back(processTweet2[a]); // pushes the value of tweet2 into tweets vector
@@ -143,26 +131,21 @@ void ofApp::mousePressed(int x, int y, int button){
 
 		}
 	}
-}
+	else if (btn4.inside(x, y)) { // runs if btn1 is in the cursor when pressed
+		std::cout << "Clicked button 4" << std::endl;
 
-//--------------------------------------------------------------
-void ofApp::mouseReleased(int x, int y, int button){
+		tweets.clear();
+		tweetDate.clear(); // clears any remaining elements in both vectors before further operation in this if statement
+		for (int a = 0; a < processTweet2.size(); a++) { // for loop that runs as long as a is less than the size of tweet2
 
-}
+			string srch = processTweet2[a]; // uses string srch to represent the value of the current element of tweet2
+			if (srch.find("Paris") != string::npos) { // nested if statement that runs if srch has any value equal to "Paris" 
+				tweets.push_back(processTweet2[a]); // pushes the value of tweet2 into tweets vector
+				tweetDate.push_back(processTweet1[a]);
+			}
 
-//--------------------------------------------------------------
-void ofApp::mouseEntered(int x, int y){
-
-}
-
-//--------------------------------------------------------------
-void ofApp::mouseExited(int x, int y){
-
-}
-
-//--------------------------------------------------------------
-void ofApp::windowResized(int w, int h){
-
+		}
+	}
 }
 
 //--------------------------------------------------------------
