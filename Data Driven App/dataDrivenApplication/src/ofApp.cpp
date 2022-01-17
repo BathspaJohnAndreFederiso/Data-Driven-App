@@ -139,6 +139,13 @@ void ofApp::keyPressed(int key){
 		tweetCount = 63694; // sets tweetCount to 63694 (the number of data lines in the csv) as passing and displaying every single row in the csv file will crash the app
 		countWindowLength = 190; // sets countWindowLength to 190
 		displayTweetCount = true; // resets displayTweetCount to true to make it count its own number of tweets
+
+		int tweetNum = 0;
+		for (int a = 0; a < processTweet2.size(); a++) { // for loop that runs as long as a is less than the size of processTweet2, displaying all the tweets
+			tweetNum++;
+			//std::cout << processTweet1[a] << " " << processTweet2[a] << std::endl;
+		}
+		std::cout << "The total amount of tweets in sampleTweets.csv is " << tweetNum << std::endl; // displays every tweet in the csv file to console using cout 
 	}
 	else if (key == '2') {  // runs if 2 key is pressed
 		std::cout << "Clicked button 2" << std::endl; // displays appropriate message to console
@@ -233,16 +240,25 @@ void ofApp::mousePressed(int x, int y, int button){
 		tweets.clear();
 		tweetDate.clear(); // clears any remaining elements in both vectors before further operation in this if statement
 		std::cout << "Clicked button 1" << std::endl; // displays appropriate message to console
-		for (int a = 0; a < 1550; a++) { // for loop that runs as long as a is less than the 1550, ergo it displays the first 1550 columns
+		
 
-			tweets.push_back(processTweet2[a]);
-			tweetDate.push_back(processTweet1[a]); // pushes the values of processTweet1 and processTweet2 into tweets and tweetDate vectors
-				
+		for (int b = 0; b < 1550; b++) { // for loop that runs as long as b is less than the 1550, ergo it displays the first 1550 columns
+
+			tweets.push_back(processTweet2[b]);
+			tweetDate.push_back(processTweet1[b]); // pushes the values of processTweet1 and processTweet2 into tweets and tweetDate vectors
+
 		}
 		
 		tweetCount = 63694; // sets tweetCount to 63694 (the number of data lines in the csv) as passing and displaying every single row in the csv file will crash the app
 		countWindowLength = 190; // sets countWindowLength to 190
 		displayTweetCount = true; // resets displayTweetCount to true to make it count its own number of tweets
+
+		int tweetNum = 0;
+		for (int a = 0; a < processTweet2.size(); a++) { // for loop that runs as long as a is less than the size of processTweet2, displaying all the tweets
+			tweetNum++;
+			//std::cout << processTweet1[a] << " " << processTweet2[a] << std::endl;
+		}
+		std::cout << "The total amount of tweets in sampleTweets.csv is " << tweetNum << std::endl; // displays every tweet in the csv file to console using cout 
 	}
 	else if (btn2.inside(x, y)) { // runs if btn2 is in the cursor when pressed
 		std::cout << "Clicked button 2" << std::endl; // displays appropriate message to console
