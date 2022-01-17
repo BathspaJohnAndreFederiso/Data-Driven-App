@@ -21,7 +21,9 @@ class ofApp : public ofBaseApp{
 		void windowResized(int w, int h);
 		void dragEvent(ofDragInfo dragInfo);
 		void gotMessage(ofMessage msg);
-
+		
+		vector <string> tweets, processTweet1, processTweet2, tweetDate;
+		string dateOfTweet, b, tweetContent;
 		string ofApp::wrapString(string text, int width); // wrapString function declared
 
 		ifstream data; // declares ifstream data for file handling the twitter csv file

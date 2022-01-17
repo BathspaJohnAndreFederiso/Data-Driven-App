@@ -9,7 +9,7 @@ void ofApp::setup(){
 	smallTxt.load("Dongle-Light.ttf", 23);
 	medTxt.load("Dongle-Regular.ttf", 25);
 	bigTxt.load("RobotoCondensed-Regular.ttf", 29);
-	btnTxt.load("Dongle-Bold.ttf", 32);
+	btnTxt.load("Dongle-Bold.ttf", 26);
 	uiHeader.load("Dongle-Bold.ttf", 55); 
 
 	//button setting
@@ -26,6 +26,8 @@ void ofApp::setup(){
 
 	queWindow.set(0, 60, 370, 760); // num are as follows, XYLW 
 	resWindow.set(390, 20, 615, 725);
+
+	loadData(); //function to load the data is summoned
 }
 
 //--------------------------------------------------------------
@@ -36,7 +38,7 @@ void ofApp::update(){
 //--------------------------------------------------------------
 void ofApp::draw(){
 	ofBackground(108, 184, 235); // sets color to lightish blue
-	//(108, 184, 235);
+	
 	
 
 	ofSetColor(228, 241, 255); // sets color to offwhite
@@ -54,28 +56,54 @@ void ofApp::draw(){
 	ofDrawRectangle(btn7);
 	ofDrawRectangle(btn8);
 	ofDrawRectangle(btn9);
-	ofDrawRectangle(btn10);
+	ofDrawRectangle(btn10); // draws the btn entities on the screen using ofDrawRectangle
 
 	ofSetColor(255, 255, 255);
 	uiHeader.drawString("Tweet Search", 30, 45); // uses uiHeader object for drawString function, Tweet Search string, 30 x and 45 y added as values
-	btnTxt.drawString("Count Tweets", 85, 110);  // same but with adjusted string, x and y values to fill in the btn entities drawn 
-	btnTxt.drawString("Count Tweets w/ 'money'", 25, 180);
-	btnTxt.drawString("Count Tweets w/ 'politics'", 21, 250);
-	btnTxt.drawString("Print Tweets w/ 'Paris'", 45, 320);
-	btnTxt.drawString("Print Tweets w/ 'DreamWorks'", 10, 390);
-	btnTxt.drawString("Print Tweets w/ 'Uber'", 35, 460);
-	btnTxt.drawString("7) Count Tweets", 35, 530);
-	btnTxt.drawString("8) Count Tweets", 35, 600);
-	btnTxt.drawString("9) Count Tweets", 35, 670);
-	btnTxt.drawString("10) Count Tweets", 35, 740);
-	
+	btnTxt.drawString("Count Tweets", 105, 110);  // same but with adjusted string, x and y values to put text in the btn entities drawn 
+	btnTxt.drawString("Count Tweets w/ 'money'", 50, 180);
+	btnTxt.drawString("Count Tweets w/ 'politics'", 48, 250);
+	btnTxt.drawString("Print Tweets w/ 'Paris'", 65, 320);
+	btnTxt.drawString("Print Tweets w/ 'DreamWorks'", 27, 390);
+	btnTxt.drawString("Print Tweets w/ 'Uber'", 65, 460);
+	btnTxt.drawString("Print Tweets w/ 'Trump'", 60, 530);
+	btnTxt.drawString("Count Tweets w/ 'Pizza'", 60, 600);
+	btnTxt.drawString("Count Tweets w/ 'Tokyo'", 60, 670);
+	btnTxt.drawString("Print Tweets w/ 'America'", 55, 740);
+	int yPos = 160;
+	for (int q = 0; q < tweets.size(); q++) {
+
+		string formattedTxt = wrapString(tweets[q], 650);
+		bigTxt.drawString(tweetDate[q], 390, 20);
+		
+		medTxt.drawString(formattedTxt, 390, 20);
+
+		yPos += 80;
+	}
+
 
 	//testImg.draw(600, 500, 212, 212);
 }
 
 //--------------------------------------------------------------
 void ofApp::loadData() {
+	data.open(ofToDataPath("sampleTweets.csv"));
+	if (data.is_open()) {
+		while (!data.eof()) {
 
+			getline(data, dateOfTweet, ','); // gets the first part of a row in the csv file into dateOfTweet string
+			getline(data, b, 'b'); // gets the b in the row to b string
+			getline(data, tweetContent); // gets the remaining parts to tweetContent
+
+			processTweet1.push_back(dateOfTweet);
+			processTweet2.push_back(tweetContent); // pushes the values back into their appropriate vectors
+		}
+		processTweet1.erase(processTweet1.begin()); // erases the first element in tweet1 which is a row with irrelevant information
+		data.close(); //close file
+	}
+	else {
+		cout << "Error: File is not found." << endl; // outputs error message
+	}
 }
 
 //--------------------------------------------------------------
@@ -101,6 +129,20 @@ void ofApp::mouseDragged(int x, int y, int button){
 //--------------------------------------------------------------
 void ofApp::mousePressed(int x, int y, int button){
 
+	if (btn1.inside(x, y)) { // runs if btn1 is in the cursor when pressed
+		std::cout << "Clicked button 1" << std::endl;
+
+		tweets.clear();
+		tweetDate.clear(); // clears any remaining elements in both vectors before further operation in this if statement
+		for (int a = 0; a < processTweet2.size(); a++) { // for loop that runs as long as a is less than the size of tweet2
+			string srch = processTweet2[a]; // uses string srch to represent the value of the current element of tweet2
+			if (srch.find("Paris") != string::npos) { // nested if statement that runs if srch has any value equal to "Paris" 
+				tweets.push_back(processTweet2[a]); // pushes the value of tweet2 into tweets vector
+				tweetDate.push_back(processTweet1[a]);
+			}
+
+		}
+	}
 }
 
 //--------------------------------------------------------------
@@ -132,3 +174,34 @@ void ofApp::gotMessage(ofMessage msg){
 void ofApp::dragEvent(ofDragInfo dragInfo){ 
 
 }
+// --------------------------------------------------------------
+string ofApp::wrapString(string text, int width) {
+	string typeWrapped = "";
+	string tempString = "";
+	vector <string> words = ofSplitString(text, " "); //create vector full of individual words in string passed in
+
+	for (int i = 0; i < words.size(); i++) { //run through vector
+		string wrd = words[i]; //get current word in vector
+
+		// if we aren't on the first word, add a space
+		if (i > 0) {
+			tempString += " ";
+		}
+		tempString += wrd; //add current word to temp string
+
+		int stringwidth = medTxt.stringWidth(tempString); //set string width to length of line
+
+		if (stringwidth >= width) {//check string with to add either space or new line before current word
+			typeWrapped += "\n"; //if line is now longer than desired width add a new line
+			tempString = wrd; // make sure we're including the extra word on the next line
+		}
+		else if (i > 0) {
+			typeWrapped += " "; // if we aren't on the first word, add a space
+		}
+		typeWrapped += wrd; //add current word to string to be returned with new lines for wrapping
+	}
+
+	return typeWrapped;
+
+}
+
