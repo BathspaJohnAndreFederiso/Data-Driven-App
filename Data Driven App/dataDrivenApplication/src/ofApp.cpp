@@ -9,6 +9,7 @@ void ofApp::setup(){
 	smallTxt.load("Dongle-Light.ttf", 23);
 	medTxt.load("Dongle-Regular.ttf", 25);
 	bigTxt.load("RobotoCondensed-Regular.ttf", 29);
+	btnTxt.load("Dongle-Bold.ttf", 32);
 	uiHeader.load("Dongle-Bold.ttf", 55); 
 
 	//button setting
@@ -57,8 +58,18 @@ void ofApp::draw(){
 
 	ofSetColor(255, 255, 255);
 	uiHeader.drawString("Tweet Search", 30, 45); // uses uiHeader object for drawString function, Tweet Search string, 30 x and 45 y added as values
-	uiHeader.drawString("Count Tweets", 35, 115); 
-	uiHeader.drawString("Count Tweets", 35, 185);
+	btnTxt.drawString("Count Tweets", 85, 110);  // same but with adjusted string, x and y values to fill in the btn entities drawn 
+	btnTxt.drawString("Count Tweets w/ 'money'", 25, 180);
+	btnTxt.drawString("Count Tweets w/ 'politics'", 21, 250);
+	btnTxt.drawString("Print Tweets w/ 'Paris'", 45, 320);
+	btnTxt.drawString("Print Tweets w/ 'DreamWorks'", 10, 390);
+	btnTxt.drawString("Print Tweets w/ 'Uber'", 35, 460);
+	btnTxt.drawString("7) Count Tweets", 35, 530);
+	btnTxt.drawString("8) Count Tweets", 35, 600);
+	btnTxt.drawString("9) Count Tweets", 35, 670);
+	btnTxt.drawString("10) Count Tweets", 35, 740);
+	
+
 	//testImg.draw(600, 500, 212, 212);
 }
 

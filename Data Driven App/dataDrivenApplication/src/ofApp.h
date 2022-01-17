@@ -27,5 +27,5 @@ class ofApp : public ofBaseApp{
 		ifstream data; // declares ifstream data for file handling the twitter csv file
 		ofImage testImg; // declares ofImage testImg for testing images
 		ofRectangle btn1, btn2, btn3, btn4, btn5, btn6, btn7, btn8, btn9, btn10, queWindow, resWindow; // declares ofRectangle objects btn1-10 and resWindow
-		ofTrueTypeFont smallTxt, medTxt, bigTxt, boldTxt, uiHeader; // declares four ofTrueTypeFont
+		ofTrueTypeFont smallTxt, medTxt, bigTxt, boldTxt, uiHeader, btnTxt; // declares four ofTrueTypeFont
 };
