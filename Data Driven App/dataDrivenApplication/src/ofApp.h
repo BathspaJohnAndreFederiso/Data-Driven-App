@@ -10,7 +10,7 @@ class ofApp : public ofBaseApp{
 		void draw();
 		void loadData(); // declares functions for running the UI
 		void processDataSingle(string srchTerm); 
-		void processData(string srchTerm, string srchTerm2); 
+		void processData(string srchTerm, string srchTerm2);  // declares processData functions for processing the data in the csv file
 		
 
 		void keyPressed(int key);

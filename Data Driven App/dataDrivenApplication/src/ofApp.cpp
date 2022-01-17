@@ -103,12 +103,12 @@ void ofApp::draw(){
 
 //--------------------------------------------------------------
 void ofApp::loadData() {
-	data.open(ofToDataPath("sampleTweets.csv"));
-	if (data.is_open()) {
-		while (!data.eof()) {
+	data.open(ofToDataPath("sampleTweets.csv")); // uses data to open sampleTweets.csv (itself accessed via ofToDataPath as the file is located in bin/src
+	if (data.is_open()) { // if statement that runs as long as data is open
+		while (!data.eof()) { // while loop that runs as long as its not the end of data file
 
-			getline(data, dateOfTweet, ','); // gets the first part of a row in the csv file into dateOfTweet string
-			getline(data, b, 'b'); // gets the b in the row to b string
+			getline(data, dateOfTweet, ','); // gets the first part of a row in the csv file into dateOfTweet string, ends at ,
+			getline(data, b, 'b'); // gets the b in the row to b string, ends at itself
 			getline(data, tweetContent); // gets the remaining parts to tweetContent
 
 			processTweet1.push_back(dateOfTweet);
@@ -117,14 +117,111 @@ void ofApp::loadData() {
 		processTweet1.erase(processTweet1.begin()); // erases the first element in tweet1 which is a row with irrelevant information
 		data.close(); //close file
 	}
-	else {
+	else { // else statement that runs if anything else happens, usually failure to find the csv
 		cout << "Error: File not found." << endl; // outputs error message
 	}
 }
 
 //--------------------------------------------------------------
 void ofApp::keyPressed(int key){
+	if (key == '1') { // runs if 1 key is pressed
+		displayTweetCount = false; // returns displayTweetCount to false, removing any previous displayed count of tweets
+		tweets.clear();
+		tweetDate.clear(); // clears any remaining elements in both vectors before further operation in this if statement
+		std::cout << "Clicked button 1" << std::endl; // displays appropriate message to console
+		for (int a = 0; a < 1550; a++) { // for loop that runs as long as a is less than the 1550, ergo it displays the first 1550 columns
 
+			tweets.push_back(processTweet2[a]);
+			tweetDate.push_back(processTweet1[a]); // pushes the values of processTweet1 and processTweet2 into tweets and tweetDate vectors
+
+		}
+
+		tweetCount = 63694; // sets tweetCount to 63694 (the number of data lines in the csv) as passing and displaying every single row in the csv file will crash the app
+		countWindowLength = 190; // sets countWindowLength to 190
+		displayTweetCount = true; // resets displayTweetCount to true to make it count its own number of tweets
+	}
+	else if (key == '2') {  // runs if 2 key is pressed
+		std::cout << "Clicked button 2" << std::endl; // displays appropriate message to console
+		displayTweetCount = false;
+		tweets.clear();
+		tweetDate.clear();
+
+		processData("money", "Money"); // summons processData function with "money" and "Money" passed in as parameter
+		countWindowLength = 160;
+		displayTweetCount = true;
+	}
+	else if (key == '3') { // runs if 3 key is pressed
+		std::cout << "Clicked button 3" << std::endl;
+		displayTweetCount = false;
+		tweets.clear();
+		tweetDate.clear(); // clears any remaining elements in both vectors before further operation in this if statement
+
+		processData("Politics", "politics"); // the following btn elses' 
+											 // content will be mostly the same but with different string values passed in
+		countWindowLength = 160;
+		displayTweetCount = true;
+	}
+	else if (key == '4') { // runs if 4 key is pressed
+		std::cout << "Clicked button 4" << std::endl;
+		displayTweetCount = false;
+		tweets.clear();
+		tweetDate.clear();
+
+		processData("Paris", "paris");
+	}
+	else if (key == '5') { // runs if 5 key is pressed
+		std::cout << "Clicked button 5" << std::endl;
+		displayTweetCount = false; // returns displayTweetCount to false
+		tweets.clear();
+		tweetDate.clear();
+
+		processDataSingle("DreamWorks"); // summons processDataSingle function with Dreamworks passed in 
+	}
+	else if (key == '6') { // runs if 6 key is pressed
+		std::cout << "Clicked button 6" << std::endl;
+		displayTweetCount = false; // returns displayTweetCount to false
+		tweets.clear();
+		tweetDate.clear();
+
+		processDataSingle("Uber");  // summons processDataSingle function with Uber  passed in 
+	}
+	else if (key == '7') { // runs if 7 key is pressed
+		std::cout << "Clicked button 7" << std::endl;
+		displayTweetCount = false; // returns displayTweetCount to false
+		tweets.clear();
+		tweetDate.clear();
+
+		processDataSingle("Trump"); 
+		displayTweetCount = true; // sets displayTweetCount to true
+		countWindowLength = 170; // sets countWindowLength to 170
+	}
+	else if (key == '8') { // runs if 8 key is pressed
+		std::cout << "Clicked button 8" << std::endl;
+		displayTweetCount = false; // returns displayTweetCount to false
+		tweets.clear();
+		tweetDate.clear();
+
+		processData("pizza", "Pizza");
+		displayTweetCount = true; // sets displayTweetCount to true
+		countWindowLength = 150; // sets countWindowLength to 150
+	}
+	else if (key == '9') { // runs if 9 key is pressed
+		std::cout << "Clicked button 9" << std::endl;
+		displayTweetCount = false; // returns displayTweetCount to false
+		tweets.clear();
+		tweetDate.clear();
+
+		processData("Tokyo", "tokyo");
+
+	}
+	else if (key == '0') { // runs if 0 key is pressed
+		std::cout << "Clicked button 0" << std::endl;
+		displayTweetCount = false; // returns displayTweetCount to false
+		tweets.clear();
+		tweetDate.clear();
+
+		processData("America", "america");
+	}
 }
 
 
@@ -182,7 +279,7 @@ void ofApp::mousePressed(int x, int y, int button){
 		tweets.clear();
 		tweetDate.clear(); 
 
-		processDataSingle("DreamWorks");
+		processDataSingle("DreamWorks"); // summons processDataSingle function with Dreamworks passed in 
 	}
 	else if (btn6.inside(x, y)) { // runs if btn6 is in the cursor when pressed
 		std::cout << "Clicked button 6" << std::endl;
@@ -190,7 +287,7 @@ void ofApp::mousePressed(int x, int y, int button){
 		tweets.clear();
 		tweetDate.clear(); 
 
-		processDataSingle("Uber"); 
+		processDataSingle("Uber");  // summons processDataSingle function with Uber  passed in 
 	}
 	else if (btn7.inside(x, y)) { // runs if btn7 is in the cursor when pressed
 		std::cout << "Clicked button 7" << std::endl;
@@ -199,8 +296,8 @@ void ofApp::mousePressed(int x, int y, int button){
 		tweetDate.clear(); 
 
 		processDataSingle("Trump");
-		displayTweetCount = true;
-		countWindowLength = 170;
+		displayTweetCount = true; // sets displayTweetCount to true
+		countWindowLength = 170; // sets countWindowLength to 170
 	}
 	else if (btn8.inside(x, y)) { // runs if btn8 is in the cursor when pressed
 		std::cout << "Clicked button 8" << std::endl;
@@ -209,8 +306,8 @@ void ofApp::mousePressed(int x, int y, int button){
 		tweetDate.clear(); 
 
 		processData("pizza", "Pizza");
-		displayTweetCount = true;
-		countWindowLength = 150;
+		displayTweetCount = true; // sets displayTweetCount to true
+		countWindowLength = 150; // sets countWindowLength to 150
 	}
 	else if (btn9.inside(x, y)) { // runs if btn9 is in the cursor when pressed
 		std::cout << "Clicked button 9" << std::endl;
