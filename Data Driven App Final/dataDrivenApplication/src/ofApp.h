@@ -13,14 +13,15 @@ class ofApp : public ofBaseApp{
 		void processData(string srchTerm, string srchTerm2);  // declares processData functions for processing the data in the csv file
 		
 		void mousePressed(int x, int y, int button);
-		void mouseReleased(int x, int y, int button);
+		// declares mousePressed for use in button interaction with the mouse
 		
 		
-		vector <string> tweets, processTweet1, processTweet2, tweetDate;
+		vector <string> tweets, processTweet1, processTweet2, tweetDate; 
 		string dateOfTweet, b, tweetContent;
-		int tweetCount = 0; // declares vectors, strings and int to be used in data processing and display
-		bool displayTweetCount = false; // sets bool displayTweetCount with a default value of false
-		int prs; // declares prs for use in presenting vector elements
+		int tweetCount = 0; 
+		int prs;   // declares vectors, strings and ints to be used in data processing and display
+		bool displayTweetCount = false; // sets bool displayTweetCount with a default value of false, for use in counting tweets on-screen
+		 
 		bool upPress, downPress; // declares bools upPress and downPress for tweet navigation
 		string ofApp::wrapString(string text, int width); // wrapString function declared
 

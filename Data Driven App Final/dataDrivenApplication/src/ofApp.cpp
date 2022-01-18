@@ -29,7 +29,7 @@ void ofApp::setup(){
 	resWindow.set(390, 70, 615, 295); // original width value is 725
 	
 	tweets.push_back("Select buttons on the left to begin displaying.");
-	tweetDate.push_back("No Tweets Yet!");
+	tweetDate.push_back("No Tweets Yet!"); // pushes back initial values to display to the screen when the user has not clicked on any buttons yet
 	
 	loadData(); //function to load the data is summoned
 
@@ -38,7 +38,7 @@ void ofApp::setup(){
 
 //--------------------------------------------------------------
 void ofApp::update(){
-	
+	 // left empty no need for update
 }
 
 //--------------------------------------------------------------
@@ -88,8 +88,8 @@ void ofApp::draw(){
 
 
 
-		if (prs < tweets.size()) {
-			bigTxt.drawString(tweetDate[prs], 405, 140); // draws the value of the current element of TweetDate
+		if (prs < tweets.size()) { // if statement that runs if prs is less than the size of tweets
+			bigTxt.drawString(tweetDate[prs], 405, 100); // draws the value of the current element of TweetDate with 405 and 100 as x and y position values
 			string formattedTxt = wrapString(tweets[prs], 500); // declares new string formattedTxt, which is equal to the wrapString function with the current element of tweets and value 580 passed in
 			smallTxt.drawString(formattedTxt, 415, 160); //  using smallTxt, calls drawString with formattedTxt, 400 (x position) and 160 (y position)
 			if (displayTweetCount == true) { // if code that runs if displayTweetCount is equal to true and q's value is equal to the second to last element
@@ -98,7 +98,7 @@ void ofApp::draw(){
 
 			}
 		}
-		else {
+		else { // else statement that runs if the above did not run
 			bigTxt.drawString("No more tweets are available.", 415, 140); // draws appropriate message to screen
 		}
 			
@@ -150,13 +150,13 @@ void ofApp::mousePressed(int x, int y, int button){
 		
 		displayTweetCount = true; // resets displayTweetCount to true to make it count its own number of tweets
 
-		int tweetNum = 0;
+		int tweetNum = 0; // declares int tweetNum for counting the actual number of the vetor
 		for (int a = 0; a < processTweet2.size(); a++) { // for loop that runs as long as a is less than the size of processTweet2, displaying all the tweets
 			tweetNum++;
 			//std::cout << processTweet1[a] << " " << processTweet2[a] << std::endl;
 		}
 		std::cout << "The total amount of tweets in sampleTweets.csv is " << tweetNum << std::endl; // displays every tweet in the csv file to console using cout 
-		tweetCount = tweetNum;
+		tweetCount = tweetNum; // sets tweetCount to the value of tweetNum
 	}
 	else if (btn2.inside(x, y)) { // runs if btn2 is in the cursor when pressed
 		prs = 0;
@@ -257,12 +257,6 @@ void ofApp::mousePressed(int x, int y, int button){
 	
 }
 
-void ofApp::mouseReleased(int x, int y, int button) {
-	if (nxtBtn.inside(x, y)) {
-		std::cout << "Released up button" << std::endl;
-		upPress = false;
-	}
-}
 
 void ofApp::processData(string srchTerm, string srchTerm2) {
 
@@ -310,7 +304,7 @@ string ofApp::wrapString(string text, int width) {
 		}
 		tempString += wrd; //add current word to temp string
 
-		int stringwidth = medTxt.stringWidth(tempString); //set string width to length of line
+		int stringwidth = smallTxt.stringWidth(tempString); //set string width to length of line, with smallTxt passed in as the font value
 
 		if (stringwidth >= width) {//check string with to add either space or new line before current word
 			typeWrapped += "\n"; //if line is now longer than desired width add a new line
