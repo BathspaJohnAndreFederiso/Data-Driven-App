@@ -2,13 +2,13 @@
 
 //--------------------------------------------------------------
 void ofApp::setup(){
-	//loads images declared in header, with image assets from src folder of this project
-	testImg.load("ned.jpg");
 	
+
+
 	// loads fonts, same as the image above but for fonts (styles, sizes)
-	smallTxt.load("Dongle-Light.ttf", 16);
+	smallTxt.load("Dongle-Light.ttf", 19);
 	medTxt.load("Dongle-Regular.ttf", 17);
-	bigTxt.load("RobotoCondensed-Regular.ttf", 17);
+	bigTxt.load("RobotoCondensed-Regular.ttf", 19);
 	btnTxt.load("Dongle-Bold.ttf", 26);
 	uiHeader.load("Dongle-Bold.ttf", 55); 
 
@@ -23,12 +23,17 @@ void ofApp::setup(){
 	btn8.set(10, 560, 350, 60);
 	btn9.set(10, 630, 350, 60);
 	btn10.set(10, 700, 350, 60);
+	nxtBtn.set(850, 70, 150, 50);
 
-	queWindow.set(0, 60, 370, 760); // num are as follows, Xposition, Yposition, Length, Width 
-	resWindow.set(390, 20, 615, 925); // original width value is 725
+	queWindow.set(0, 60, 370, 760); // num are as follows, X position, Y position, Length, Width 
+	resWindow.set(390, 70, 615, 925); // original width value is 725
 	
-	//countWindow.set(390, 20, countWindowLength, 50);
+	tweets.push_back("Select buttons on the left to begin displaying.");
+	tweetDate.push_back("No Tweets Yet!");
+	
 	loadData(); //function to load the data is summoned
+
+	prs = 0; // sets prs to 0
 }
 
 //--------------------------------------------------------------
@@ -58,9 +63,14 @@ void ofApp::draw(){
 	ofDrawRectangle(btn8);
 	ofDrawRectangle(btn9);
 	ofDrawRectangle(btn10); // draws the btn entities on the screen using ofDrawRectangle
+	
 
 
 
+	ofSetColor(255, 255, 255);
+	ofDrawRectangle(nxtBtn);
+	ofSetColor(101, 119, 134);
+	btnTxt.drawString("Next Page", 870, 103);
 
 	ofSetColor(255, 255, 255);
 	uiHeader.drawString("Tweet Finder", 30, 45); // uses uiHeader object for drawString function, Tweet Search string, 30 x and 45 y added as values
@@ -70,35 +80,30 @@ void ofApp::draw(){
 	btnTxt.drawString("Print Tweets w/ 'Paris'", 65, 320);
 	btnTxt.drawString("Print Tweets w/ 'DreamWorks'", 27, 390);
 	btnTxt.drawString("Print Tweets w/ 'Uber'", 65, 460);
-	btnTxt.drawString("Count Tweets w/ 'Trump'", 60, 530);
+	btnTxt.drawString("Count Tweets w/ 'Biden'", 60, 530);
 	btnTxt.drawString("Count Tweets w/ 'Pizza'", 60, 600);
 	btnTxt.drawString("Print Tweets w/ 'Tokyo'", 60, 670);
 	btnTxt.drawString("Print Tweets w/ 'America'", 55, 740);
-	
-	int yPos = 120;
-	
+	 
 
-	for (int q = 0; q < tweets.size(); q++) {
 
-		bigTxt.drawString(tweetDate[q], 395, yPos); // draws the value of the current element of TweetDate
+	//for (int q = 0; q < tweets.size(); q++) {
 
-		string formattedTxt = wrapString(tweets[q], 580); // declares new string formattedTxt, which is equal to the wrapString function with the current element of tweets and value 580 passed in
-		smallTxt.drawString(formattedTxt, 400, (yPos + 20)); //  using smallTxt, calls drawString with formattedTxt, 400 (x position) and yPos incremented by 20 passed in
+		if (prs < tweets.size()) {
+			bigTxt.drawString(tweetDate[prs], 405, 140); // draws the value of the current element of TweetDate
+			string formattedTxt = wrapString(tweets[prs], 530); // declares new string formattedTxt, which is equal to the wrapString function with the current element of tweets and value 580 passed in
+			smallTxt.drawString(formattedTxt, 415, 160); //  using smallTxt, calls drawString with formattedTxt, 400 (x position) and yPos incremented by 20 passed in
+			if (displayTweetCount == true) { // if code that runs if displayTweetCount is equal to true and q's value is equal to the second to last element
 
-		yPos += 110; // increments yPos by 110;
-		if (q == (tweets.size() - 1) && displayTweetCount == true) { // if code that runs if displayTweetCount is equal to true and q is equal to the second to last element
-			
-			countWindow.set(390, 20, countWindowLength, 50); // sets countWindow rectangle with a dynamic length value
-			ofSetColor(170, 184, 194); // sets color to lighter grey
-			ofDrawRectangle(countWindow); // draws countWindow rectangle 
-			ofSetColor(20, 23, 26); // sets color to white
-			btnTxt.drawString("Tweets: " + ofToString(tweetCount), 405, 50); // draws the value of tweetCount using ofToString and btnTxt.drawString
+				uiHeader.drawString("Tweets: " + ofToString((prs) + 1) + "/" + ofToString(tweetCount), 390, 55); // draws the value of tweetCount using ofToString and btnTxt.drawString
+
+			}
 		}
-
-	}
+		else {
+			bigTxt.drawString("No more tweets are available.", 415, 140);
+		}
+			
 	
-
-	//testImg.draw(600, 500, 212, 212);
 }
 
 //--------------------------------------------------------------
@@ -122,136 +127,28 @@ void ofApp::loadData() {
 	}
 }
 
-//--------------------------------------------------------------
-void ofApp::keyPressed(int key){
-	if (key == '1') { // runs if 1 key is pressed
-		displayTweetCount = false; // returns displayTweetCount to false, removing any previous displayed count of tweets
-		tweets.clear();
-		tweetDate.clear(); // clears any remaining elements in both vectors before further operation in this if statement
-		std::cout << "Clicked button 1" << std::endl; // displays appropriate message to console
-
-		for (int a = 0; a < 1550; a++) { // for loop that runs as long as a is less than the 1550, ergo it displays the first 1550 columns
-
-			tweets.push_back(processTweet2[a]);
-			tweetDate.push_back(processTweet1[a]); // pushes the values of processTweet1 and processTweet2 into tweets and tweetDate vectors
-
-		}
-
-		tweetCount = 63694; // sets tweetCount to 63694 (the number of data lines in the csv) as passing and displaying every single row in the csv file will crash the app
-		countWindowLength = 190; // sets countWindowLength to 190
-		displayTweetCount = true; // resets displayTweetCount to true to make it count its own number of tweets
-
-		int tweetNum = 0;
-		for (int a = 0; a < processTweet2.size(); a++) { // for loop that runs as long as a is less than the size of processTweet2, displaying all the tweets
-			tweetNum++;
-			//std::cout << processTweet1[a] << " " << processTweet2[a] << std::endl;
-		}
-		std::cout << "The total amount of tweets in sampleTweets.csv is " << tweetNum << std::endl; // displays every tweet in the csv file to console using cout 
-	}
-	else if (key == '2') {  // runs if 2 key is pressed
-		std::cout << "Clicked button 2" << std::endl; // displays appropriate message to console
-		displayTweetCount = false;
-		tweets.clear();
-		tweetDate.clear();
-
-		processData("money", "Money"); // summons processData function with "money" and "Money" passed in as parameter
-		countWindowLength = 160;
-		displayTweetCount = true;
-	}
-	else if (key == '3') { // runs if 3 key is pressed
-		std::cout << "Clicked button 3" << std::endl;
-		displayTweetCount = false;
-		tweets.clear();
-		tweetDate.clear(); // clears any remaining elements in both vectors before further operation in this if statement
-
-		processData("Politics", "politics"); // the following btn elses' 
-											 // content will be mostly the same but with different string values passed in
-		countWindowLength = 160;
-		displayTweetCount = true;
-	}
-	else if (key == '4') { // runs if 4 key is pressed
-		std::cout << "Clicked button 4" << std::endl;
-		displayTweetCount = false;
-		tweets.clear();
-		tweetDate.clear();
-
-		processData("Paris", "paris");
-	}
-	else if (key == '5') { // runs if 5 key is pressed
-		std::cout << "Clicked button 5" << std::endl;
-		displayTweetCount = false; // returns displayTweetCount to false
-		tweets.clear();
-		tweetDate.clear();
-
-		processDataSingle("DreamWorks"); // summons processDataSingle function with Dreamworks passed in 
-	}
-	else if (key == '6') { // runs if 6 key is pressed
-		std::cout << "Clicked button 6" << std::endl;
-		displayTweetCount = false; // returns displayTweetCount to false
-		tweets.clear();
-		tweetDate.clear();
-
-		processDataSingle("Uber");  // summons processDataSingle function with Uber  passed in 
-	}
-	else if (key == '7') { // runs if 7 key is pressed
-		std::cout << "Clicked button 7" << std::endl;
-		displayTweetCount = false; // returns displayTweetCount to false
-		tweets.clear();
-		tweetDate.clear();
-
-		processDataSingle("Trump"); 
-		displayTweetCount = true; // sets displayTweetCount to true
-		countWindowLength = 170; // sets countWindowLength to 170
-	}
-	else if (key == '8') { // runs if 8 key is pressed
-		std::cout << "Clicked button 8" << std::endl;
-		displayTweetCount = false; // returns displayTweetCount to false
-		tweets.clear();
-		tweetDate.clear();
-
-		processData("pizza", "Pizza");
-		displayTweetCount = true; // sets displayTweetCount to true
-		countWindowLength = 150; // sets countWindowLength to 150
-	}
-	else if (key == '9') { // runs if 9 key is pressed
-		std::cout << "Clicked button 9" << std::endl;
-		displayTweetCount = false; // returns displayTweetCount to false
-		tweets.clear();
-		tweetDate.clear();
-
-		processData("Tokyo", "tokyo");
-
-	}
-	else if (key == '0') { // runs if 0 key is pressed
-		std::cout << "Clicked button 0" << std::endl;
-		displayTweetCount = false; // returns displayTweetCount to false
-		tweets.clear();
-		tweetDate.clear();
-
-		processData("America", "america");
-	}
-}
 
 
 //--------------------------------------------------------------
 void ofApp::mousePressed(int x, int y, int button){
 
 	if (btn1.inside(x, y)) { // runs if btn2 is in the cursor when pressed
+		prs = 0; // resets prs back to 0
 		displayTweetCount = false; // returns displayTweetCount to false, removing any previous displayed count of tweets
 		tweets.clear();
 		tweetDate.clear(); // clears any remaining elements in both vectors before further operation in this if statement
 		std::cout << "Clicked button 1" << std::endl; // displays appropriate message to console
 		
 
-		for (int b = 0; b < 1550; b++) { // for loop that runs as long as b is less than the 1550, ergo it displays the first 1550 columns
+		for (int b = 0; b < 63691; b++) { // for loop that runs as long as b is less than 63591, which is almost all of the text lines in the csv
 
 			tweets.push_back(processTweet2[b]);
 			tweetDate.push_back(processTweet1[b]); // pushes the values of processTweet1 and processTweet2 into tweets and tweetDate vectors
 
 		}
 		
-		tweetCount = 63694; // sets tweetCount to 63694 (the number of data lines in the csv) as passing and displaying every single row in the csv file will crash the app
-		countWindowLength = 190; // sets countWindowLength to 190
+		
+		
 		displayTweetCount = true; // resets displayTweetCount to true to make it count its own number of tweets
 
 		int tweetNum = 0;
@@ -260,18 +157,21 @@ void ofApp::mousePressed(int x, int y, int button){
 			//std::cout << processTweet1[a] << " " << processTweet2[a] << std::endl;
 		}
 		std::cout << "The total amount of tweets in sampleTweets.csv is " << tweetNum << std::endl; // displays every tweet in the csv file to console using cout 
+		tweetCount = tweetNum;
 	}
 	else if (btn2.inside(x, y)) { // runs if btn2 is in the cursor when pressed
+		prs = 0;
 		std::cout << "Clicked button 2" << std::endl; // displays appropriate message to console
 		displayTweetCount = false; 
 		tweets.clear();
 		tweetDate.clear(); 
 
 		processData("money", "Money"); // summons processData function with "money" and "Money" passed in as parameter
-		countWindowLength = 160;
+		
 		displayTweetCount = true;
 	}
 	else if (btn3.inside(x, y)) { // runs if btn3 is in the cursor when pressed
+		prs = 0;
 		std::cout << "Clicked button 3" << std::endl;
 		displayTweetCount = false;
 		tweets.clear();
@@ -279,10 +179,11 @@ void ofApp::mousePressed(int x, int y, int button){
 
 		processData("Politics", "politics"); // the following btn elses' 
 		                                     // content will be mostly the same but with different string values passed in
-		countWindowLength = 160;
+		
 		displayTweetCount = true; 
 	}
 	else if (btn4.inside(x, y)) { // runs if btn4 is in the cursor when pressed
+		prs = 0;
 		std::cout << "Clicked button 4" << std::endl; 
 		displayTweetCount = false;
 		tweets.clear();
@@ -291,6 +192,7 @@ void ofApp::mousePressed(int x, int y, int button){
 		processData("Paris", "paris");
 	}
 	else if (btn5.inside(x, y)) { // runs if btn5 is in the cursor when pressed
+		prs = 0;
 		std::cout << "Clicked button 5" << std::endl;
 		displayTweetCount = false; // returns displayTweetCount to false
 		tweets.clear();
@@ -299,6 +201,7 @@ void ofApp::mousePressed(int x, int y, int button){
 		processDataSingle("DreamWorks"); // summons processDataSingle function with Dreamworks passed in 
 	}
 	else if (btn6.inside(x, y)) { // runs if btn6 is in the cursor when pressed
+		prs = 0;
 		std::cout << "Clicked button 6" << std::endl;
 		displayTweetCount = false; // returns displayTweetCount to false
 		tweets.clear();
@@ -307,16 +210,18 @@ void ofApp::mousePressed(int x, int y, int button){
 		processDataSingle("Uber");  // summons processDataSingle function with Uber  passed in 
 	}
 	else if (btn7.inside(x, y)) { // runs if btn7 is in the cursor when pressed
+		prs = 0;
 		std::cout << "Clicked button 7" << std::endl;
 		displayTweetCount = false; // returns displayTweetCount to false
 		tweets.clear();
 		tweetDate.clear(); 
 
-		processDataSingle("Trump");
+		processDataSingle("Biden");
 		displayTweetCount = true; // sets displayTweetCount to true
-		countWindowLength = 170; // sets countWindowLength to 170
+		
 	}
 	else if (btn8.inside(x, y)) { // runs if btn8 is in the cursor when pressed
+		prs = 0;
 		std::cout << "Clicked button 8" << std::endl;
 		displayTweetCount = false; // returns displayTweetCount to false
 		tweets.clear();
@@ -324,9 +229,10 @@ void ofApp::mousePressed(int x, int y, int button){
 
 		processData("pizza", "Pizza");
 		displayTweetCount = true; // sets displayTweetCount to true
-		countWindowLength = 150; // sets countWindowLength to 150
+		
 	}
 	else if (btn9.inside(x, y)) { // runs if btn9 is in the cursor when pressed
+		prs = 0;
 		std::cout << "Clicked button 9" << std::endl;
 		displayTweetCount = false; // returns displayTweetCount to false
 		tweets.clear();
@@ -336,12 +242,26 @@ void ofApp::mousePressed(int x, int y, int button){
 		
 	}
 	else if (btn10.inside(x, y)) { // runs if btn10 is in the cursor when pressed
+	    prs = 0;
 		std::cout << "Clicked button 10" << std::endl;
 		displayTweetCount = false; // returns displayTweetCount to false
 		tweets.clear();
 		tweetDate.clear(); 
 
 		processData("America", "america");
+	}
+	else if (nxtBtn.inside(x, y)) {
+	  std::cout << "Pressed up button" << std::endl;
+	  upPress = true;
+	  prs++;
+    }
+	
+}
+
+void ofApp::mouseReleased(int x, int y, int button) {
+	if (nxtBtn.inside(x, y)) {
+		std::cout << "Released up button" << std::endl;
+		upPress = false;
 	}
 }
 
