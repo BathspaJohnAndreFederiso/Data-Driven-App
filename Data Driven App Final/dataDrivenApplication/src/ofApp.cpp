@@ -13,7 +13,7 @@ void ofApp::setup(){
 	uiHeader.load("Dongle-Bold.ttf", 55); 
 
 	//button setting
-	btn1.set(10, 70, 350, 60); // 10 and 50 as x and y coordinates, 350 and 60 as length and width
+	btn1.set(10, 70, 350, 60); // 10 and 70 as x and y coordinates, 350 and 60 as length and width
 	btn2.set(10, 140, 350, 60); // same except the y value is incremented by 70 to arrange in a column
 	btn3.set(10, 210, 350, 60);
 	btn4.set(10, 280, 350, 60);
@@ -23,10 +23,10 @@ void ofApp::setup(){
 	btn8.set(10, 560, 350, 60);
 	btn9.set(10, 630, 350, 60);
 	btn10.set(10, 700, 350, 60);
-	nxtBtn.set(850, 70, 150, 50);
+	nxtBtn.set(850, 80, 150, 50);
 
-	queWindow.set(0, 60, 370, 760); // num are as follows, X position, Y position, Length, Width 
-	resWindow.set(390, 70, 615, 925); // original width value is 725
+	queWindow.set(0, 60, 370, 760); // entered values are as follows, X position, Y position, Length, Width 
+	resWindow.set(390, 70, 615, 295); // original width value is 725
 	
 	tweets.push_back("Select buttons on the left to begin displaying.");
 	tweetDate.push_back("No Tweets Yet!");
@@ -52,7 +52,7 @@ void ofApp::draw(){
 
 
 	ofSetColor(101, 119, 134); // sets color to gray
-	ofDrawRectangle(resWindow); // draws resWindow as a rectangle
+	ofDrawRectRounded(resWindow, 20); // draws resWindow as a rectangle
 	ofDrawRectangle(btn1); 
 	ofDrawRectangle(btn2);
 	ofDrawRectangle(btn3);
@@ -68,13 +68,13 @@ void ofApp::draw(){
 
 
 	ofSetColor(255, 255, 255);
-	ofDrawRectangle(nxtBtn);
+	ofDrawRectRounded(nxtBtn, 20);
 	ofSetColor(101, 119, 134);
-	btnTxt.drawString("Next Page", 870, 103);
+	btnTxt.drawString("Next Page", 870, 110);
 
 	ofSetColor(255, 255, 255);
 	uiHeader.drawString("Tweet Finder", 30, 45); // uses uiHeader object for drawString function, Tweet Search string, 30 x and 45 y added as values
-	btnTxt.drawString("Count Tweets", 105, 110);  // same but with adjusted string, x and y values to put text in the btn entities drawn 
+	btnTxt.drawString("Count Tweets", 105, 110);  // same but with adjusted string, x and y position values to put text in the btn entities drawn 
 	btnTxt.drawString("Count Tweets w/ 'money'", 50, 180);
 	btnTxt.drawString("Count Tweets w/ 'politics'", 48, 250);
 	btnTxt.drawString("Print Tweets w/ 'Paris'", 65, 320);
@@ -87,20 +87,19 @@ void ofApp::draw(){
 	 
 
 
-	//for (int q = 0; q < tweets.size(); q++) {
 
 		if (prs < tweets.size()) {
 			bigTxt.drawString(tweetDate[prs], 405, 140); // draws the value of the current element of TweetDate
-			string formattedTxt = wrapString(tweets[prs], 530); // declares new string formattedTxt, which is equal to the wrapString function with the current element of tweets and value 580 passed in
-			smallTxt.drawString(formattedTxt, 415, 160); //  using smallTxt, calls drawString with formattedTxt, 400 (x position) and yPos incremented by 20 passed in
+			string formattedTxt = wrapString(tweets[prs], 500); // declares new string formattedTxt, which is equal to the wrapString function with the current element of tweets and value 580 passed in
+			smallTxt.drawString(formattedTxt, 415, 160); //  using smallTxt, calls drawString with formattedTxt, 400 (x position) and 160 (y position)
 			if (displayTweetCount == true) { // if code that runs if displayTweetCount is equal to true and q's value is equal to the second to last element
 
-				uiHeader.drawString("Tweets: " + ofToString((prs) + 1) + "/" + ofToString(tweetCount), 390, 55); // draws the value of tweetCount using ofToString and btnTxt.drawString
+				uiHeader.drawString("Tweet " + ofToString((prs) + 1) + " out of " + ofToString(tweetCount), 390, 55); // draws the value of tweetCount using ofToString and btnTxt.drawString
 
 			}
 		}
 		else {
-			bigTxt.drawString("No more tweets are available.", 415, 140);
+			bigTxt.drawString("No more tweets are available.", 415, 140); // draws appropriate message to screen
 		}
 			
 	
@@ -295,10 +294,6 @@ void ofApp::processDataSingle(string srchTerm) {
 	tweetCount = tweets.size(); // assigns to tweetCount the value of the size of tweets vector
 }
 
-//--------------------------------------------------------------
-void ofApp::gotMessage(ofMessage msg){
-
-}
 
 // --------------------------------------------------------------
 string ofApp::wrapString(string text, int width) {

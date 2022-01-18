@@ -12,12 +12,9 @@ class ofApp : public ofBaseApp{
 		void processDataSingle(string srchTerm); 
 		void processData(string srchTerm, string srchTerm2);  // declares processData functions for processing the data in the csv file
 		
-
-		void keyPressed(int key);
-		void keyReleased(int key);
 		void mousePressed(int x, int y, int button);
 		void mouseReleased(int x, int y, int button);
-		void gotMessage(ofMessage msg); // functions for user interaction 
+		
 		
 		vector <string> tweets, processTweet1, processTweet2, tweetDate;
 		string dateOfTweet, b, tweetContent;
