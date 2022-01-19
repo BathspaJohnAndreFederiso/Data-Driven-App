@@ -150,108 +150,86 @@ void ofApp::mousePressed(int x, int y, int button){
 		
 		displayTweetCount = true; // resets displayTweetCount to true to make it count its own number of tweets
 
-		int tweetNum = 0; // declares int tweetNum for counting the actual number of the vetor
+		int tweetNum = 0; // declares int tweetNum for use in counting the total amount of tweets in the csv
 		for (int a = 0; a < processTweet2.size(); a++) { // for loop that runs as long as a is less than the size of processTweet2, displaying all the tweets
 			tweetNum++;
-			//std::cout << processTweet1[a] << " " << processTweet2[a] << std::endl;
 		}
 		std::cout << "The total amount of tweets in sampleTweets.csv is " << tweetNum << std::endl; // displays every tweet in the csv file to console using cout 
 		tweetCount = tweetNum; // sets tweetCount to the value of tweetNum
 	}
 	else if (btn2.inside(x, y)) { // runs if btn2 is in the cursor when pressed
-		prs = 0;
+		
 		std::cout << "Clicked button 2" << std::endl; // displays appropriate message to console
-		displayTweetCount = false; 
-		tweets.clear();
-		tweetDate.clear(); 
 
 		processData("money", "Money"); // summons processData function with "money" and "Money" passed in as parameter
-		
 		displayTweetCount = true;
+		
 	}
 	else if (btn3.inside(x, y)) { // runs if btn3 is in the cursor when pressed
-		prs = 0;
+		
 		std::cout << "Clicked button 3" << std::endl;
-		displayTweetCount = false;
-		tweets.clear();
-		tweetDate.clear(); // clears any remaining elements in both vectors before further operation in this if statement
-
+		
 		processData("Politics", "politics"); // the following btn elses' 
 		                                     // content will be mostly the same but with different string values passed in
 		
 		displayTweetCount = true; 
 	}
 	else if (btn4.inside(x, y)) { // runs if btn4 is in the cursor when pressed
-		prs = 0;
+		
 		std::cout << "Clicked button 4" << std::endl; 
-		displayTweetCount = false;
-		tweets.clear();
-		tweetDate.clear(); 
+		
 
 		processData("Paris", "paris");
 	}
 	else if (btn5.inside(x, y)) { // runs if btn5 is in the cursor when pressed
-		prs = 0;
+		
 		std::cout << "Clicked button 5" << std::endl;
-		displayTweetCount = false; // returns displayTweetCount to false
-		tweets.clear();
-		tweetDate.clear(); 
+		
 
 		processDataSingle("DreamWorks"); // summons processDataSingle function with Dreamworks passed in 
 	}
 	else if (btn6.inside(x, y)) { // runs if btn6 is in the cursor when pressed
-		prs = 0;
+		
 		std::cout << "Clicked button 6" << std::endl;
-		displayTweetCount = false; // returns displayTweetCount to false
-		tweets.clear();
-		tweetDate.clear(); 
+		
 
 		processDataSingle("Uber");  // summons processDataSingle function with Uber  passed in 
 	}
 	else if (btn7.inside(x, y)) { // runs if btn7 is in the cursor when pressed
-		prs = 0;
+		
 		std::cout << "Clicked button 7" << std::endl;
-		displayTweetCount = false; // returns displayTweetCount to false
-		tweets.clear();
-		tweetDate.clear(); 
+		
 
 		processDataSingle("Biden");
-		displayTweetCount = true; // sets displayTweetCount to true
+		displayTweetCount = true;
 		
 	}
 	else if (btn8.inside(x, y)) { // runs if btn8 is in the cursor when pressed
-		prs = 0;
+		
 		std::cout << "Clicked button 8" << std::endl;
-		displayTweetCount = false; // returns displayTweetCount to false
-		tweets.clear();
-		tweetDate.clear(); 
+		
 
 		processData("pizza", "Pizza");
-		displayTweetCount = true; // sets displayTweetCount to true
+		displayTweetCount = true;
 		
 	}
 	else if (btn9.inside(x, y)) { // runs if btn9 is in the cursor when pressed
-		prs = 0;
+		
 		std::cout << "Clicked button 9" << std::endl;
-		displayTweetCount = false; // returns displayTweetCount to false
-		tweets.clear();
-		tweetDate.clear(); 
+		
 
 		processData("Tokyo", "tokyo");
 		
 	}
 	else if (btn10.inside(x, y)) { // runs if btn10 is in the cursor when pressed
-	    prs = 0;
+	    
 		std::cout << "Clicked button 10" << std::endl;
-		displayTweetCount = false; // returns displayTweetCount to false
-		tweets.clear();
-		tweetDate.clear(); 
+		
 
 		processData("America", "america");
 	}
 	else if (nxtBtn.inside(x, y)) {
 	  std::cout << "Pressed up button" << std::endl;
-	  upPress = true;
 	  prs++;
     }
 	
@@ -259,6 +237,12 @@ void ofApp::mousePressed(int x, int y, int button){
 
 
 void ofApp::processData(string srchTerm, string srchTerm2) {
+
+	displayTweetCount = false;
+	prs = 0;
+	
+	tweets.clear();
+	tweetDate.clear();
 
 	for (int a = 0; a < processTweet2.size(); a++) { // for loop that runs as long as a is less than the size of tweet2
 
@@ -270,12 +254,17 @@ void ofApp::processData(string srchTerm, string srchTerm2) {
 
 	}
 	tweetCount = tweets.size(); // assigns to tweetCount the value of the size of tweets vector
+	
 
 }
 
 //--------------------------------------------------------------
 void ofApp::processDataSingle(string srchTerm) {
-	
+
+	prs = 0; // resets prs back to 0
+	tweets.clear();
+	tweetDate.clear(); // clears any remaining elements in both vectors before further operation in this if statement
+	displayTweetCount = false; // sets displayTweetCount to false
 	for (int a = 0; a < processTweet2.size(); a++) { // for loop that runs as long as a is less than the size of tweet2
 
 		string srch = processTweet2[a]; // uses string srch to represent the value of the current element of tweet2
@@ -286,6 +275,7 @@ void ofApp::processDataSingle(string srchTerm) {
 
 	}
 	tweetCount = tweets.size(); // assigns to tweetCount the value of the size of tweets vector
+	
 }
 
 
