@@ -282,30 +282,30 @@ void ofApp::processDataSingle(string srchTerm) {
 // --------------------------------------------------------------
 string ofApp::wrapString(string text, int width) {
 	string typeWrapped = "";
-	string tempString = "";
-	vector <string> words = ofSplitString(text, " "); //create vector full of individual words in string passed in
+	string tempString = ""; // declares two string vars typeWrapped and tempString, currently empty so it can be used to store string arguments in this function
+	vector <string> words = ofSplitString(text, " "); // declares string vector words, used to contain the individual words in the passed in string argument
+	// ofSplitString works similar to getline with a delimiter, but the entire tokens are returned instead of the ones before the delimiter 
+	// these tokens are then assigned to the words vector
+	for (int i = 0; i < words.size(); i++) { // for loop that runs through word vector's size
+		string wrd = words[i]; // assigns current word element in vector to new string var wrd
 
-	for (int i = 0; i < words.size(); i++) { //run through vector
-		string wrd = words[i]; //get current word in vector
-
-		// if we aren't on the first word, add a space
-		if (i > 0) {
-			tempString += " ";
+		
+		if (i > 0) {  // if statement that only runs if the iterator variable is greater than 0, ergo not the first word in the tweet
+			tempString += " "; // adds space to tempString
 		}
-		tempString += wrd; //add current word to temp string
+		tempString += wrd; // add the current word element to temp string
 
 		int stringwidth = smallTxt.stringWidth(tempString); //set string width to length of line, with smallTxt passed in as the font value
 
 		if (stringwidth >= width) {//check string with to add either space or new line before current word
-			typeWrapped += "\n"; //if line is now longer than desired width add a new line
+			typeWrapped += "\n"; //if the line is now longer than the width value add a new line using \n
 			tempString = wrd; // make sure we're including the extra word on the next line
 		}
-		else if (i > 0) {
-			typeWrapped += " "; // if we aren't on the first word, add a space
+		else if (i > 0) { // else if statement that runs if i is greater than 0, which means its not on the first word of the vector 
+			typeWrapped += " "; // adds a space to typeWrapped
 		}
 		typeWrapped += wrd; //add current word to string to be returned with new lines for wrapping
 	}
 
-	return typeWrapped;
-
+	return typeWrapped; // returns typeWrapped to main, in this case draw
 }
