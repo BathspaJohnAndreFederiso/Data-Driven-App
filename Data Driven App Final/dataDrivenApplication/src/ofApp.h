@@ -22,7 +22,7 @@ class ofApp : public ofBaseApp{
 		int prs;   // declares vectors, strings and ints to be used in data processing and display
 		bool displayTweetCount = false; // sets bool displayTweetCount with a default value of false, for use in counting tweets on-screen
 		 
-		string ofApp::wrapString(string text, int width); // wrapString function declared
+		string ofApp::wrapTxt(string text, int width); // wrapString function declared
 
 		ifstream data; // declares ifstream data for file handling the twitter csv file
 		ofImage testImg; // declares ofImage testImg for testing images

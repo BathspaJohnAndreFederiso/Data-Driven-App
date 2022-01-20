@@ -90,9 +90,9 @@ void ofApp::draw(){
 
 		if (prs < tweets.size()) { // if statement that runs if prs is less than the size of tweets
 			bigTxt.drawString(tweetDate[prs], 405, 100); // draws the value of the current element of TweetDate with 405 and 100 as x and y position values
-			string formattedTxt = wrapString(tweets[prs], 500); // declares new string formattedTxt, which is equal to the wrapString function with the current element of tweets and value 580 passed in
+			string formattedTxt = wrapTxt(tweets[prs], 500); // declares new string formattedTxt, which is equal to the wrapString function with the current element of tweets and value 580 passed in
 			smallTxt.drawString(formattedTxt, 415, 160); //  using smallTxt, calls drawString with formattedTxt, 400 (x position) and 160 (y position)
-			if (displayTweetCount == true) { // if code that runs if displayTweetCount is equal to true and q's value is equal to the second to last element
+			if (displayTweetCount == true) { // if code that runs if displayTweetCount is equal to true 
 
 				uiHeader.drawString("Tweet " + ofToString((prs) + 1) + " out of " + ofToString(tweetCount), 390, 55); // draws the value of tweetCount using ofToString and btnTxt.drawString
 
@@ -280,32 +280,32 @@ void ofApp::processDataSingle(string srchTerm) {
 
 
 // --------------------------------------------------------------
-string ofApp::wrapString(string text, int width) {
-	string typeWrapped = "";
-	string tempString = ""; // declares two string vars typeWrapped and tempString, currently empty so it can be used to store string arguments in this function
-	vector <string> words = ofSplitString(text, " "); // declares string vector words, used to contain the individual words in the passed in string argument
+string ofApp::wrapTxt(string text, int width) {
+	string txtToWrap = "";
+	string rawString = ""; // declares two string vars txtToWrap and rawString, currently empty so it can be used to store string arguments in this function
+	vector <string> wordVector = ofSplitString(text, " "); // declares string vector wordVector, used to contain the individual words in the passed in string argument
 	// ofSplitString works similar to getline with a delimiter, but the entire tokens are returned instead of the ones before the delimiter 
-	// these tokens are then assigned to the words vector
-	for (int i = 0; i < words.size(); i++) { // for loop that runs through word vector's size
-		string wrd = words[i]; // assigns current word element in vector to new string var wrd
+	// these tokens are then assigned to wordVector
+	for (int i = 0; i < wordVector.size(); i++) { // for loop that runs through wordVector's size
+		string word = wordVector[i]; // assigns current element wordVector to new string var word
 
 		
 		if (i > 0) {  // if statement that only runs if the iterator variable is greater than 0, ergo not the first word in the tweet
-			tempString += " "; // adds space to tempString
+			rawString += " "; // adds space to rawString
 		}
-		tempString += wrd; // add the current word element to temp string
+		rawString += word; // add the current word element to rawString
 
-		int stringwidth = smallTxt.stringWidth(tempString); //set string width to length of line, with smallTxt passed in as the font value
+		int txtWidth = smallTxt.stringWidth(rawString); //set txtWidth to length of line, with smallTxt passed in as the font value
 
-		if (stringwidth >= width) {//check string with to add either space or new line before current word
-			typeWrapped += "\n"; //if the line is now longer than the width value add a new line using \n
-			tempString = wrd; // make sure we're including the extra word on the next line
+		if (txtWidth >= width) {//check txtWidth to add either a space or new line 
+			txtToWrap += "\n"; //if the line is now longer than the passed in width value add a new line using \n
+			rawString = word; // include the extra word to next line just created
 		}
 		else if (i > 0) { // else if statement that runs if i is greater than 0, which means its not on the first word of the vector 
-			typeWrapped += " "; // adds a space to typeWrapped
+			txtToWrap += " "; // adds a space to txtToWrap
 		}
-		typeWrapped += wrd; //add current word to string to be returned with new lines for wrapping
+		txtToWrap += word; //add current word to string to be returned with new lines for wrapping
 	}
 
-	return typeWrapped; // returns typeWrapped to main, in this case draw
+	return txtToWrap; // returns txtToWrap to main, in this case draw
 }
